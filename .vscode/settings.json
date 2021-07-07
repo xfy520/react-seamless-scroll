@@ -1,0 +1,17 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "vue",
+    "html"
+  ],
+  "editor.formatOnSave": true,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "python.pythonPath": "C:\\Users\\my\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
+}

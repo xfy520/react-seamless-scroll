@@ -1,0 +1,27 @@
+.scroll {
+  display: inline-block;
+  height: 290px;
+  width: 390px;
+  margin: 0 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll > div:first-child {
+  font-weight: bold;
+  color: red;
+  text-align: center;
+}
+
+.scroll > div:last-child {
+  margin-top: 15px;
+  height: 260px;
+  overflow: hidden;
+}
+
+.scroll .item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+}
