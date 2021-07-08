@@ -1,5 +1,5 @@
 {
-  "name": "react-seamless-scroll",
+  "name": "css-react-seamless-scroll",
   "version": "1.0.0",
   "author": "xufangyi",
   "private": false,
@@ -9,7 +9,8 @@
     "seamless",
     "scroll",
     "seamless-scroll",
-    "react-seamless-scroll"
+    "react-seamless-scroll",
+    "css-react-seamless-scroll"
   ],
   "files": [
     "package.json",
