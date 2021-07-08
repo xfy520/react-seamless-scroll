@@ -7,7 +7,7 @@ class jsSeamlessScroll extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datas: [],
+      scrollSwitch: true,
       xPos: 0,
       yPos: 0,
       reqFrame: null,
@@ -60,10 +60,6 @@ class jsSeamlessScroll extends Component {
       : { overflow: "hidden" };
   }
 
-  get isScroll() {
-    return this.props.datas.length >= this.props.limitScrollNum;
-  }
-
   get baseFontSize() {
     return this.props.isRemUnit
       ? parseInt(
@@ -81,7 +77,7 @@ class jsSeamlessScroll extends Component {
   }
 
   get hoverStop() {
-    return this.props.hover && this.props.autoPlay && this.isScroll;
+    return this.props.hover && this.state.scrollSwitch;
   }
 
   get step() {
@@ -100,6 +96,15 @@ class jsSeamlessScroll extends Component {
     return _step;
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { scrollSwitch } = nextProps;
+    if (scrollSwitch !== prevState.scrollSwitch) {
+      return {
+        scrollSwitch,
+      };
+    }
+    return null;
+  }
 
   cancle() {
     cancelAnimationFrame(this.state.reqFrame || "");
@@ -109,10 +114,18 @@ class jsSeamlessScroll extends Component {
   }
 
   move() {
-    if (this.state.isHover || !this.isScroll) {
+    this.cancle();
+    if (this.state.isHover) {
       return;
     }
-    this.cancle();
+    if (!this.state.scrollSwitch) {
+      this.setState({
+        reqFrame: requestAnimationFrame(() => {
+          this.move();
+        })
+      });
+      return;
+    }
     this.setState({
       reqFrame: requestAnimationFrame(() => {
         const h = this.state.realBoxHeight / 2;
@@ -189,34 +202,31 @@ class jsSeamlessScroll extends Component {
   }
 
   initMove() {
-    setTimeout(() => {
-      dataWarm(this.props.datas);
-      this.refs.scrollHtml.innerHTML = "";
-      if (this.isHorizontal) {
-        let slotListWidth = this.refs.slotListRef.offsetWidth;
-        slotListWidth = slotListWidth * 2 + 1;
-        this.setState({
-          realBoxWidth: slotListWidth
-        });
-      }
-      if (this.isScroll) {
+    this.cancle();
+    this.setState({
+      isHover: false,
+      yPos: 0,
+      xPos: 0
+    }, function () {
+      setTimeout(() => {
+        dataWarm(this.props.datas);
+        this.refs.scrollHtml.innerHTML = "";
+        if (this.isHorizontal) {
+          let slotListWidth = this.refs.slotListRef.offsetWidth;
+          slotListWidth = slotListWidth * 2 + 1;
+          this.setState({
+            realBoxWidth: slotListWidth
+          });
+        }
         this.refs.scrollHtml.innerHTML = this.refs.slotListRef.innerHTML;
         setTimeout(() => {
           this.setState({
             realBoxHeight: this.refs.realBoxRef.offsetHeight
           })
-          if (this.props.autoPlay) {
-            this.move();
-          }
+          this.move();
         }, 0);
-      } else {
-        this.cancle();
-        this.setState({
-          yPos: 0,
-          xPos: 0
-        })
-      }
-    }, 0);
+      }, 0);
+    });
   }
 
   startMove() {
@@ -253,24 +263,15 @@ class jsSeamlessScroll extends Component {
   }
 
   reset() {
-    this.cancle();
-    this.setState({
-      isHover: false,
-    }, function () {
-      this.initMove();
-    })
+    this.initMove();
   }
 }
 
 jsSeamlessScroll.propTypes = {
-  // 滚动列表的数据列表，主要使用长度与监听数据更新
-  datas: PropTypes.array.isRequired,
-  // 手动控制滚动
-  autoPlay: PropTypes.bool,
+  // 手动控制滚动状态
+  scrollSwitch: PropTypes.bool,
   // 步进速度，step 需是单步大小的约数
   step: PropTypes.number,
-  // 开启滚动的数据量
-  limitScrollNum: PropTypes.number,
   // 是否开启鼠标悬停
   hover: PropTypes.bool,
   // 控制滚动方向
@@ -290,9 +291,8 @@ jsSeamlessScroll.propTypes = {
 }
 
 jsSeamlessScroll.defaultProps = {
-  autoPlay: true,
+  scrollSwitch: true,
   step: 1,
-  limitScrollNum: 5,
   hover: false,
   direction: "up",
   singleHeight: 0,

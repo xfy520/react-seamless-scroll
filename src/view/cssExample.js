@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as echarts from "echarts";
 
-import { CssSeamlessScroll } from "../../lib/react-seamless-scroll";
+import { CssSeamlessScroll } from "../components/index";
 
 import "./style.css";
 
@@ -9,6 +9,7 @@ class cssExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      scrollSwitch: false,
       datas: [
         {
           title: "React 无缝滚动组件展示数据第1条",
@@ -143,17 +144,22 @@ class cssExample extends Component {
 
   componentDidMount() {
     setInterval(() => {
-      this.state.datas1[1].title = "我是第2条更新数据";
-      this.state.datas1[5].title = "我是第6条更新数据";
-      this.state.datas1[7].title = "我是第8条更新数据";
+      this.setState({
+        scrollSwitch: !this.state.scrollSwitch
+      })
+    }, 3000);
+    const t1 = setInterval(() => {
+      this.state.datas1[1].title = `我是第2条更新数据-${Date.now()}`;
+      this.state.datas1[5].title = `我是第6条更新数据-${Date.now()}`;
+      this.state.datas1[7].title = `我是第8条更新数据-${Date.now()}`;
       this.setState({
         datas1: this.state.datas1,
       }, function () {
         this.refs.datas1.reset();
       });
-    }, 1000);
+    }, 3000);
 
-    setTimeout(() => {
+    const t2 = setInterval(() => {
       this.state.datas2.push({
         title: "我是新增的一条数据" + Date.now(),
         date: Date.now(),
@@ -166,25 +172,18 @@ class cssExample extends Component {
     }, 3000);
 
     setTimeout(() => {
-      this.state.datas2.push({
-        title: "我是新增的一条数据" + Date.now(),
-        date: Date.now(),
-      });
-      this.setState({
-        datas2: this.state.datas2,
-      }, function () {
-        this.refs.datas2.reset();
-      });
-    }, 9000);
+      clearInterval(t1);
+      clearInterval(t2);
+    }, 15000);
 
     setTimeout(() => {
       const charts = document.querySelectorAll(".css_chart");
-      console.log(charts.length)
       for (let index = 0; index < charts.length; index++) {
         const element = charts[index];
         echarts.init(element).setOption(this.state.chartOptions);
       }
-    }, 0);
+      this.refs.echart.reset();
+    }, 2000);
   }
 
   render() {
@@ -192,7 +191,7 @@ class cssExample extends Component {
       <div style={{ margin: "10px 0" }}>
         <div className="scroll">
           <div>CSS3版 默认配置</div>
-          <CssSeamlessScroll datas={this.state.datas}>
+          <CssSeamlessScroll datas={this.state.datas} scrollSwitch={this.state.scrollSwitch}>
             {
               this.state.datas.map(data => <div className="item" key={data.title}>
                 <span>{data.title}</span>
@@ -264,10 +263,7 @@ class cssExample extends Component {
 
         <div className="scroll">
           <div>CSS3版 单行停顿时间</div>
-          <CssSeamlessScroll
-            datas={this.state.datas}
-            duration={60} step={9}
-          >
+          <CssSeamlessScroll datas={this.state.datas} duration={60} step={9}>
             {
               this.state.datas.map(data => <div className="item" key={data.title}>
                 <span>{data.title}</span>
@@ -303,7 +299,7 @@ class cssExample extends Component {
 
         <div className="scroll">
           <div>CSS3版 echart图表</div>
-          <CssSeamlessScroll datas={[1, 2, 3]} limitScrollNum={3}>
+          <CssSeamlessScroll datas={[1, 2, 3]} ref="echart">
             {
               [1, 2, 3].map(num => <div className="css_chart" style={{ width: "360px", height: "200px" }} key={num}>
               </div>)

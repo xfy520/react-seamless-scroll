@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as echarts from "echarts";
 
-import { JsSeamlessScroll } from "../../lib/react-seamless-scroll";
+import { JsSeamlessScroll } from "../components/index";
 
 import "./style.css";
 
@@ -9,6 +9,7 @@ class JsExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      scrollSwitch: false,
       datas: [
         {
           title: "React 无缝滚动组件展示数据第1条",
@@ -143,17 +144,22 @@ class JsExample extends Component {
 
   componentDidMount() {
     setInterval(() => {
-      this.state.datas1[1].title = "我是第2条更新数据";
-      this.state.datas1[5].title = "我是第6条更新数据";
-      this.state.datas1[7].title = "我是第8条更新数据";
+      this.setState({
+        scrollSwitch: !this.state.scrollSwitch
+      })
+    }, 3000);
+    const t1 = setInterval(() => {
+      this.state.datas1[1].title = `我是第2条更新数据-${Date.now()}`;
+      this.state.datas1[5].title = `我是第6条更新数据-${Date.now()}`;
+      this.state.datas1[7].title = `我是第8条更新数据-${Date.now()}`;
       this.setState({
         datas1: this.state.datas1,
       }, function () {
         this.refs.datas1.reset();
       });
-    }, 1000);
+    }, 3000);
 
-    setInterval(() => {
+    const t2 = setInterval(() => {
       this.state.datas2.push({
         title: "我是新增的一条数据" + Date.now(),
         date: Date.now(),
@@ -166,12 +172,17 @@ class JsExample extends Component {
     }, 2000);
 
     setTimeout(() => {
+      clearInterval(t1);
+      clearInterval(t2);
+    }, 15000);
+
+    setTimeout(() => {
       const charts = document.querySelectorAll(".js_chart");
       for (let index = 0; index < charts.length; index++) {
         const element = charts[index];
         echarts.init(element).setOption(this.state.chartOptions);
       }
-    }, 0);
+    }, 1);
   }
 
   render() {
@@ -179,7 +190,7 @@ class JsExample extends Component {
       <div style={{ margin: "10px 0" }}>
         <div className="scroll">
           <div>JS版 默认配置</div>
-          <JsSeamlessScroll datas={this.state.datas}>
+          <JsSeamlessScroll datas={this.state.datas} scrollSwitch={this.state.scrollSwitch}>
             {
               this.state.datas.map(data => <div className="item" key={data.title}>
                 <span>{data.title}</span>
@@ -251,11 +262,7 @@ class JsExample extends Component {
 
         <div className="scroll">
           <div>JS版 单行停顿时间</div>
-          <JsSeamlessScroll
-            datas={this.state.datas}
-            singleHeight={35}
-            singleWaitTime={3000}
-          >
+          <JsSeamlessScroll datas={this.state.datas} singleHeight={35} singleWaitTime={3000}>
             {
               this.state.datas.map(data => <div className="item" key={data.title}>
                 <span>{data.title}</span>
@@ -291,7 +298,7 @@ class JsExample extends Component {
 
         <div className="scroll">
           <div>JS版 echart图表</div>
-          <JsSeamlessScroll datas={[1, 2, 3]} limitScrollNum={3}>
+          <JsSeamlessScroll datas={[1, 2, 3]}>
             {
               [1, 2, 3].map(num => <div className="js_chart" style={{ width: "360px", height: "200px" }} key={num}>
               </div>)
