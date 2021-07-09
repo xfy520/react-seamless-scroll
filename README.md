@@ -13,13 +13,13 @@ React 下列表无缝滚动
 - `npm`
 
   ```shell
-  npm install vue3-seamless-scroll --save
+  npm install css-react-seamless-scroll --save
   ```
 
 - `Yarn`
 
   ```shell
-  yarn add vue3-seamless-scroll
+  yarn add css-react-seamless-scroll
   ```
 
 ## 组件配置
