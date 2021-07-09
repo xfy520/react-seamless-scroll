@@ -1,4 +1,4 @@
-# react-seamless-scroll
+# css-react-seamless-scroll
 
 React 下列表无缝滚动
 
@@ -13,13 +13,13 @@ React 下列表无缝滚动
 - `npm`
 
   ```shell
-  npm install css-react-seamless-scroll --save
+  npm install css-css-react-seamless-scroll --save
   ```
 
 - `Yarn`
 
   ```shell
-  yarn add css-react-seamless-scroll
+  yarn add css-css-react-seamless-scroll
   ```
 
 ## 组件配置
@@ -76,7 +76,7 @@ React 下列表无缝滚动
 
 ```js
 import React, { Component } from "react";
-import { CssSeamlessScroll, JsSeamlessScroll } from "react-seamless-scroll";
+import { CssSeamlessScroll, JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {

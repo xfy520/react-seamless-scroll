@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as echarts from "echarts";
 
-import { JsSeamlessScroll } from "../../lib/react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 import "./style.css";
 

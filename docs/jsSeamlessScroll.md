@@ -99,7 +99,7 @@
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -170,7 +170,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -241,7 +241,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -312,7 +312,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -383,7 +383,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -454,7 +454,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -525,7 +525,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -596,7 +596,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -679,7 +679,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
@@ -767,7 +767,7 @@ export default Example;
 
 ```js
 import React, { Component } from "react";
-import { JsSeamlessScroll } from "react-seamless-scroll";
+import { JsSeamlessScroll } from "css-react-seamless-scroll";
 
 class Example extends Component {
   constructor(props) {
